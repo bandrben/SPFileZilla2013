@@ -158,7 +158,7 @@ namespace SPFileZilla2013
             if (System.Environment.MachineName == "PERSEUS")
             {
                 //tbQuickSPUsername.Text = "bsteinhauser";
-                tbQuickSPPassword.Text = "abc123#";
+                //tbQuickSPPassword.Text = "abc123#";
                 //tbQuickSPDomain.Text = "versatrend";
             }
         }
