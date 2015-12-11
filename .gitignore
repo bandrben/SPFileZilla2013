@@ -53,6 +53,8 @@ Temporary Items
 *.manifest
 *.dll
 *.user
+*.suo
+*.cache
 bin/
 obj/
 pkg/
