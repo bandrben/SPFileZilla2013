@@ -18,6 +18,8 @@ namespace SPFileZilla2013
             btnOk.Focus();
             textBox1.Select(0, 0);
             pbFileZilla.Click += new EventHandler(pbFileZilla_Click);
+
+            lblVersionNumber.Text = BandR.Consts.VERSION;
         }
 
         void pbFileZilla_Click(object sender, EventArgs e)

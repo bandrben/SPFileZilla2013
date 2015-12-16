@@ -10,5 +10,7 @@ namespace BandR
 
         public const int MAX_ROW_LIMIT = 5000;
 
+        public const string VERSION = "2.0"; // #changeme
+
     }
 }

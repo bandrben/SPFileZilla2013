@@ -47,6 +47,9 @@ namespace BandR.CustObjs
         public string editorColorIsWhite { get; set; }
         public string editorTextIsWrap { get; set; }
 
+        public string spUrl { get; set; }
+        public bool isSPOnline { get; set; }
+
         public SessionDetail()
         {
             localPath = "C:\\";
@@ -56,6 +59,9 @@ namespace BandR.CustObjs
             editorFontSize = "9";
             editorColorIsWhite = "1";
             editorTextIsWrap = "0";
+
+            spUrl = "";
+            isSPOnline = false;
         }
     }
 

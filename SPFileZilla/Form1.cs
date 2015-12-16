@@ -54,6 +54,7 @@ namespace SPFileZilla2013
         public string curLvSelected;
 
         public SessionDetail sessionDetail = null;
+        public const string sessionFileName = "session_v2.dat";
 
         /// <summary>
         /// </summary>
@@ -150,16 +151,27 @@ namespace SPFileZilla2013
 
             EnableFormFields();
 
-            // #testing
-            var userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            tbQuickSPUsername.Text = userName.Substring(userName.IndexOf('\\') + 1);
-            tbQuickSPDomain.Text = userName.Substring(0, userName.IndexOf('\\'));
+            GetCurrentUserInfo();
 
             if (System.Environment.MachineName == "PERSEUS")
             {
-                //tbQuickSPUsername.Text = "bsteinhauser";
-                //tbQuickSPPassword.Text = "abc123#";
-                //tbQuickSPDomain.Text = "versatrend";
+                tbQuickSPPassword.Text = "abc123#";
+            }
+        }
+
+        /// <summary>
+        /// </summary>
+        private void GetCurrentUserInfo()
+        {
+            try
+            {
+                var userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                tbQuickSPUsername.Text = userName.Substring(userName.IndexOf('\\') + 1);
+                tbQuickSPDomain.Text = userName.Substring(0, userName.IndexOf('\\'));
+            }
+            catch (Exception)
+            {
+                // do nothing
             }
         }
 
@@ -681,7 +693,7 @@ namespace SPFileZilla2013
                     {
                         if (!SpComHelper.CopySPFile(
                                 tbQuickSPSiteUrl.Text.Trim(), tbQuickSPUsername.Text.Trim(), tbQuickSPPassword.Text.Trim(), tbQuickSPDomain.Text.Trim(),
-                                cbIsSharePointOnline.Checked, curSPLocationObj.listId.Value, oldLocPath, newLocPath, cbOverwrite.Checked, out msg))
+                                cbIsSharePointOnline.Checked, oldLocPath, newLocPath, cbOverwrite.Checked, out msg))
                         {
                             bgWorker.ReportProgress(0, string.Format("Error copying file, {0}: {1}", oldLocPath, msg));
                         }
@@ -694,7 +706,7 @@ namespace SPFileZilla2013
                     {
                         if (!SpComHelper.MoveSPFile(
                                 tbQuickSPSiteUrl.Text.Trim(), tbQuickSPUsername.Text.Trim(), tbQuickSPPassword.Text.Trim(), tbQuickSPDomain.Text.Trim(),
-                                cbIsSharePointOnline.Checked, curSPLocationObj.listId.Value, oldLocPath, newLocPath, cbOverwrite.Checked, out msg))
+                                cbIsSharePointOnline.Checked, oldLocPath, newLocPath, cbOverwrite.Checked, out msg))
                         {
                             bgWorker.ReportProgress(0, string.Format("Error moving file, {0}: {1}", oldLocPath, msg));
                         }
@@ -1995,6 +2007,18 @@ namespace SPFileZilla2013
                         sNodePath,
                         newName,
                     });
+
+
+
+
+                var oldFileExt = oldName.Substring(oldName.LastIndexOf('.'));
+                var newFileExt = newName.Substring(newName.LastIndexOf('.'));
+
+                if (newFileExt.IndexOf('.') >= 0 && !oldFileExt.IsEqual(newFileExt))
+                {
+                    // rename file extension
+
+                }
             }
         }
 
@@ -2025,15 +2049,39 @@ namespace SPFileZilla2013
             }
             else if (sNodeType == Enums.TreeNodeTypes.FILE.ToString())
             {
-                // rename file in sharepoint
-                if (!SpComHelper.RenameSharePointFile(tbQuickSPSiteUrl.Text.Trim(), tbQuickSPUsername.Text.Trim(), tbQuickSPPassword.Text.Trim(), tbQuickSPDomain.Text.Trim(), cbIsSharePointOnline.Checked, sNodePath, newName, out msg))
+
+                var oldFileExt = sNodePath.Substring(sNodePath.LastIndexOf('.'));
+                var newFileExt = newName.Substring(newName.LastIndexOf('.'));
+
+                if (oldFileExt.IsEqual(newFileExt))
                 {
-                    bgWorker.ReportProgress(0, msg);
+                    // rename file in sharepoint
+                    if (!SpComHelper.RenameSharePointFile(tbQuickSPSiteUrl.Text.Trim(), tbQuickSPUsername.Text.Trim(), tbQuickSPPassword.Text.Trim(), tbQuickSPDomain.Text.Trim(), cbIsSharePointOnline.Checked, sNodePath, newName, out msg))
+                    {
+                        bgWorker.ReportProgress(0, msg);
+                    }
+                    else
+                    {
+                        bgWorker.ReportProgress(0, "File Renamed Successfully: " + sNodePath);
+                        refreshNeeded = true;
+                    }
                 }
                 else
                 {
-                    bgWorker.ReportProgress(0, "File Renamed Successfully: " + sNodePath);
-                    refreshNeeded = true;
+                    // rename file using sharepoint move operation
+                    var oldFilePath = sNodePath;
+                    var newFilePath = sNodePath.Substring(0, sNodePath.LastIndexOf('/')).CombineWeb(newName);
+
+                    if (!SpComHelper.MoveSPFile(tbQuickSPSiteUrl.Text.Trim(), tbQuickSPUsername.Text.Trim(), tbQuickSPPassword.Text.Trim(), tbQuickSPDomain.Text.Trim(), cbIsSharePointOnline.Checked,
+                        oldFilePath, newFilePath, false, out msg))
+                    {
+                        bgWorker.ReportProgress(0, msg);
+                    }
+                    else
+                    {
+                        bgWorker.ReportProgress(0, "File Renamed Successfully: " + sNodePath);
+                        refreshNeeded = true;
+                    }
                 }
             }
 
@@ -2716,9 +2764,12 @@ namespace SPFileZilla2013
             sessionDetail.editorFontSize = this.editorFontSize;
             sessionDetail.editorTextIsWrap = this.editorTextIsWrap;
 
+            sessionDetail.spUrl = tbQuickSPSiteUrl.Text.Trim();
+            sessionDetail.isSPOnline = cbIsSharePointOnline.Checked;
+
             try
             {
-                string iniPath = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new char[] { '\\' }) + "\\" + "session.dat";
+                string iniPath = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new char[] { '\\' }) + "\\" + sessionFileName;
                 sw = new StreamWriter(iniPath, false);
                 var xml = XmlSerialization.Serialize(sessionDetail);
 
@@ -2744,7 +2795,7 @@ namespace SPFileZilla2013
 
             try
             {
-                string iniPath = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new char[] { '\\' }) + "\\" + "session.dat";
+                string iniPath = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(new char[] { '\\' }) + "\\" + sessionFileName;
                 var fi = new FileInfo(iniPath);
 
                 if (fi.Exists)
@@ -2757,6 +2808,10 @@ namespace SPFileZilla2013
                     if (sessionDetail != null)
                     {
                         tbCurFSUrl.Text = sessionDetail.localPath;
+
+                        tbQuickSPSiteUrl.Text = sessionDetail.spUrl;
+                        cbIsSharePointOnline.Checked = sessionDetail.isSPOnline;
+
                         if (sessionDetail.winWidth > 0)
                             this.Width = sessionDetail.winWidth;
                         if (sessionDetail.winHeight > 0)

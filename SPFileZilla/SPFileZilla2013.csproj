@@ -177,6 +177,7 @@
     <Content Include="images\wraptext.bmp" />
     <Content Include="images\wraptext2.bmp" />
     <Content Include="images\wraptext3.bmp" />
+    <Content Include="README.txt" />
     <None Include="Resources\Icon1.ico" />
   </ItemGroup>
   <ItemGroup>

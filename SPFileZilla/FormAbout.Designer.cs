@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblVersionNumber = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -61,14 +61,14 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "SPFileZilla 2013";
             // 
-            // label2
+            // lblVersionNumber
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(153, 41);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Version 2.0.0.0";
+            this.lblVersionNumber.AutoSize = true;
+            this.lblVersionNumber.Location = new System.Drawing.Point(153, 41);
+            this.lblVersionNumber.Name = "lblVersionNumber";
+            this.lblVersionNumber.Size = new System.Drawing.Size(60, 13);
+            this.lblVersionNumber.TabIndex = 3;
+            this.lblVersionNumber.Text = "Version 2.0";
             // 
             // label3
             // 
@@ -77,7 +77,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(78, 13);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Copyright 2014";
+            this.label3.Text = "Copyright 2015";
             // 
             // label4
             // 
@@ -141,7 +141,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblVersionNumber);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -161,7 +161,7 @@
 
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblVersionNumber;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox1;
