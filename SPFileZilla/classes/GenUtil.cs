@@ -148,7 +148,7 @@ namespace BandR
 
             if (str.Contains(delimiter))
             {
-                lst.AddRange(str.Split(new char[] { Convert.ToChar(delimiter) }));
+                lst.AddRange(str.Split(new string[] { delimiter }, StringSplitOptions.None));
             }
             else
             {
