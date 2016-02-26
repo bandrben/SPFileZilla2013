@@ -37,6 +37,11 @@ namespace SPFileZilla2013
             return rl > 0 ? rl : 100;
         }
 
+        public static string GetContentTypeIdPrefix()
+        {
+            return System.Configuration.ConfigurationManager.AppSettings["contentTypeIdSearchPrefix"];
+        }
+
         public class CurSPLocationObj
         {
             public string siteUrl;

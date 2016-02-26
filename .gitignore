@@ -254,3 +254,6 @@ _Pvt_Extensions
 *.exe
 *.manifest
 *.dll
+
+SPFileZillaConsole/
+SPFileZillaWinTest/

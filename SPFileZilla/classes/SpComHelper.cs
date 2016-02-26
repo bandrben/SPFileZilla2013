@@ -23,6 +23,24 @@ namespace BandR
 
         /// <summary>
         /// </summary>
+        private static object SafeGetFileSize(ListItem item)
+        {
+            object o = null;
+
+            try
+            {
+                o = item["File_x0020_Size"];
+            }
+            catch (Exception)
+            {
+                o = 0;
+            }
+
+            return o;
+        }
+
+        /// <summary>
+        /// </summary>
         public static bool GetSiteLists(
             string spSiteUrl,
             string spSiteUsername,
@@ -61,7 +79,7 @@ namespace BandR
                         bool match = false;
                         foreach (ContentType ct in list.ContentTypes)
                         {
-                            if (ct.Id.ToString().StartsWith("0x0101"))
+                            if (ct.Id.ToString().StartsWith(SPFileZilla2013.Form1.GetContentTypeIdPrefix()))
                             {
                                 match = true;
                                 break;
@@ -176,7 +194,7 @@ namespace BandR
                                 if (!modified.HasValue && created.HasValue)
                                     modified = created;
 
-                                var filesize = (int?)GenUtil.SafeToNum(item["File_x0020_Size"]);
+                                var filesize = (int?)GenUtil.SafeToNum(SafeGetFileSize(item));
                                 if (filesize == -1) filesize = null;
 
                                 lstObjs.Add(new CustObjs.SPTree_FolderFileObj()
@@ -309,7 +327,7 @@ namespace BandR
                                 if (!modified.HasValue && created.HasValue)
                                     modified = created;
 
-                                var filesize = (int?)GenUtil.SafeToNum(item["File_x0020_Size"]);
+                                var filesize = (int?)GenUtil.SafeToNum(SafeGetFileSize(item));
                                 if (filesize == -1) filesize = null;
 
                                 lstObjs.Add(new CustObjs.SPTree_FolderFileObj()
