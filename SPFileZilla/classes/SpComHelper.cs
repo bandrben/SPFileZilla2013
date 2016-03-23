@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.SharePoint.Client;
 using System.Net;
 using System.Collections;
+using System.Globalization;
 
 namespace BandR
 {
@@ -158,6 +159,8 @@ namespace BandR
                     {
                         var cq = new CamlQuery();
 
+                        cq.DatesInUtc = false;
+
                         var strViewFields = "<FieldRef Name='ID' /><FieldRef Name='FileLeafRef' /><FieldRef Name='FileDirRef' /><FieldRef Name='FileRef' /><FieldRef Name='FSObjType' /><FieldRef Name='Created' /><FieldRef Name='Modified' /><FieldRef Name='File_x0020_Size' />";
                         var strQuery = "<Query></Query>";
 
@@ -292,6 +295,8 @@ namespace BandR
                     {
                         var cq = new CamlQuery();
 
+                        cq.DatesInUtc = false;
+
                         var strViewFields = "<FieldRef Name='ID' /><FieldRef Name='FileLeafRef' /><FieldRef Name='FileDirRef' /><FieldRef Name='FileRef' /><FieldRef Name='FSObjType' /><FieldRef Name='Created' /><FieldRef Name='Modified' /><FieldRef Name='File_x0020_Size' />";
                         var strQuery = "<Query></Query>";
 
@@ -419,6 +424,8 @@ namespace BandR
                     while (true)
                     {
                         var cq = new CamlQuery();
+
+                        cq.DatesInUtc = false;
 
                         var strViewFields = "<FieldRef Name='ID' /><FieldRef Name='FileLeafRef' /><FieldRef Name='FileDirRef' /><FieldRef Name='FileRef' /><FieldRef Name='FSObjType' />";
                         var strQuery = "<Query></Query>";
