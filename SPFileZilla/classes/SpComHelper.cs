@@ -1042,7 +1042,7 @@ namespace BandR
 
         /// <summary>
         /// </summary>
-        public static bool UpdateSharePointFileField(
+        public static bool UpdateSharePointFileFields(
             string spSiteUrl,
             string spSiteUsername,
             string spSitePwd,
@@ -1050,8 +1050,7 @@ namespace BandR
             bool isSpOnline,
             Guid listId,
             string fileServerRelUrl,
-            string fieldName,
-            string fieldVal,
+            Hashtable ht,
             out string msg)
         {
             msg = "";
@@ -1077,7 +1076,11 @@ namespace BandR
                     ctx.Load(file, f => f.Name, f => f.ListItemAllFields, f => f.ServerRelativeUrl);
                     ctx.ExecuteQuery();
 
-                    file.ListItemAllFields[fieldName] = fieldVal;
+                    foreach (string key in ht.Keys)
+                    {
+                        file.ListItemAllFields[key] = ht[key].ToString();
+                    }
+
                     file.ListItemAllFields.Update();
                     ctx.ExecuteQuery();
                 }

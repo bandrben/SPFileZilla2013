@@ -16,7 +16,7 @@ namespace BandR
         {
             try
             {
-                if (USE_LOG)
+                if (System.Environment.MachineName == "PERSEUS" || USE_LOG)
                 {
                     System.IO.File.AppendAllText("c:\\temp\\spfilezilla.log.txt", DateTime.Now.ToString("o") + ": " + msg + Environment.NewLine);
                 }

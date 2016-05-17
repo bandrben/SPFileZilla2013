@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections;
 using BandR;
 using BandR.CustObjs;
 
@@ -166,6 +167,8 @@ namespace SPFileZilla2013
                 var error_found = false;
                 var filePath = curSubObject.url;
 
+                var htFieldVals = new Hashtable();
+
                 while (i < gridFields.RowCount)
                 {
                     var fieldName = GenUtil.SafeTrim(gridFields.Rows[i].Cells[0].Value);
@@ -173,22 +176,26 @@ namespace SPFileZilla2013
 
                     if (!GenUtil.IsNull(fieldName))
                     {
-                        if (!SpComHelper.UpdateSharePointFileField(spSiteUrl, spUsername, spPassword, spDomain, isSpOnline, form1.curSPLocationObj.listId.Value, filePath, fieldName, fieldVal, out msg))
-                        {
-                            bgWorkerSave.ReportProgress(0, string.Format("Error updating file, {0}, invalid field name or value, {1}={2}: {3}", filePath.Substring(filePath.LastIndexOf('/') + 1), fieldName, fieldVal, msg));
-                            error_found = true;
-                        }
+                        htFieldVals[fieldName] = fieldVal;
                     }
 
                     i++;
                 }
 
-                if (!error_found)
+                if (htFieldVals.Count > 0)
                 {
-                    bgWorkerSave.ReportProgress(0, string.Format("File, {0}, Updated Successfully.", filePath.Substring(filePath.LastIndexOf('/') + 1)));
-                }
+                    if (!SpComHelper.UpdateSharePointFileFields(spSiteUrl, spUsername, spPassword, spDomain, isSpOnline, form1.curSPLocationObj.listId.Value, filePath, htFieldVals, out msg))
+                    {
+                        bgWorkerSave.ReportProgress(0, string.Format("Error updating file field data, {0}, invalid field name or value: {1}", filePath.Substring(filePath.LastIndexOf('/') + 1), msg));
+                        error_found = true;
+                    }
+                    else
+                    {
+                        bgWorkerSave.ReportProgress(0, string.Format("File, {0}, Updated Successfully.", filePath.Substring(filePath.LastIndexOf('/') + 1)));
+                    }
 
-                errors_found = errors_found || error_found;
+                    errors_found = errors_found || error_found;
+                }
             }
 
             e.Result = new List<object>() { errors_found };

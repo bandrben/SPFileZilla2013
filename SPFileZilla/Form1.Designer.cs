@@ -82,6 +82,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.profilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.managePropertyBagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbLogo = new System.Windows.Forms.PictureBox();
@@ -94,8 +96,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.lnkClear = new System.Windows.Forms.LinkLabel();
             this.lnkExport = new System.Windows.Forms.LinkLabel();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.managePropertyBagToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripShared.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -557,14 +557,29 @@
             // profilesToolStripMenuItem
             // 
             this.profilesToolStripMenuItem.Name = "profilesToolStripMenuItem";
-            this.profilesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.profilesToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.profilesToolStripMenuItem.Text = "Profiles";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.managePropertyBagToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // managePropertyBagToolStripMenuItem
+            // 
+            this.managePropertyBagToolStripMenuItem.Name = "managePropertyBagToolStripMenuItem";
+            this.managePropertyBagToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.managePropertyBagToolStripMenuItem.Text = "Manage Property Bag";
+            this.managePropertyBagToolStripMenuItem.Click += new System.EventHandler(this.managePropertyBagToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -577,7 +592,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // pbLogo
@@ -698,21 +713,6 @@
             this.lnkExport.TabStop = true;
             this.lnkExport.Text = "EXPORT";
             this.lnkExport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnkExport_LinkClicked);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.managePropertyBagToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // managePropertyBagToolStripMenuItem
-            // 
-            this.managePropertyBagToolStripMenuItem.Name = "managePropertyBagToolStripMenuItem";
-            this.managePropertyBagToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.managePropertyBagToolStripMenuItem.Text = "Manage Property Bag";
-            this.managePropertyBagToolStripMenuItem.Click += new System.EventHandler(this.managePropertyBagToolStripMenuItem_Click);
             // 
             // Form1
             // 
