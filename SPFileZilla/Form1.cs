@@ -42,6 +42,11 @@ namespace SPFileZilla2013
             return System.Configuration.ConfigurationManager.AppSettings["contentTypeIdSearchPrefix"];
         }
 
+        public bool IgnoreFileDates()
+        {
+            return GenUtil.SafeToBool(System.Configuration.ConfigurationManager.AppSettings["ignoreFileDates"]);
+        }
+
         public class CurSPLocationObj
         {
             public string siteUrl;
@@ -3018,6 +3023,18 @@ namespace SPFileZilla2013
             {
                 dtCreated = fi.CreationTime;
                 dtModified = fi.LastWriteTime;
+            }
+
+            if (IgnoreFileDates())
+            {
+                if (!dtCreated.HasValue)
+                {
+                    // try to preserve create date
+                    dtCreated = DateTime.Now;
+                }
+
+                // override modified date with current date
+                dtModified = DateTime.Now;
             }
 
             if (!SpComHelper.UploadFileToSharePoint(tbQuickSPSiteUrl.Text.Trim(), tbQuickSPUsername.Text.Trim(), tbQuickSPPassword.Text.Trim(),
