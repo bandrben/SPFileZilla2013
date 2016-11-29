@@ -250,10 +250,10 @@ _Pvt_Extensions
 .fake/
 
 # BEN
+[Ll]ib/
+# *.exe
+# *.dll
 *.dat
-*.exe
 *.manifest
-*.dll
-
 SPFileZillaConsole/
 SPFileZillaWinTest/
