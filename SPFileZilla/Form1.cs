@@ -364,14 +364,16 @@ namespace SPFileZilla2013
         /// </summary>
         public void lvSP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeListViewBgColor(lvSP);
+            //ChangeListViewBgColor(lvSP);
+            // #todo bug found, cripples GUI when selecting many items
         }
         
         /// <summary>
         /// </summary>
         public void lvFS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChangeListViewBgColor(lvFS);
+            //ChangeListViewBgColor(lvFS);
+            // #todo bug found, cripples GUI when selecting many items
         }
 
         /// <summary>
