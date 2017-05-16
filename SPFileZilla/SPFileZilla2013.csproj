@@ -50,12 +50,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SharePoint.Client, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\SPCOM2013\Microsoft.SharePoint.Client.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SharePoint2013.Client.x86.15.0.4481.1504\lib\Microsoft.SharePoint.Client.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SharePoint.Client.Runtime, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\SPCOM2013\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.SharePoint2013.Client.x86.15.0.4481.1504\lib\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -147,6 +145,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
